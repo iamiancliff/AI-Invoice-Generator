@@ -26,9 +26,9 @@ connectDB();
 app.use(express.json());
 
 // Routes Here
-app.use("/api/auth", authRoutes);
-app.use("/api/invoices", invoiceRoutes);
-app.use("/api/ai", aiRoutes);
+// app.use("/api/auth", authRoutes);
+// app.use("/api/invoices", invoiceRoutes);
+// app.use("/api/ai", aiRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
