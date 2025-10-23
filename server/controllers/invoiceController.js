@@ -22,8 +22,10 @@ exports.createInvoice = async (req, res) => {
     let subtotal = 0;
     let taxTotal = 0;
     items.forEach((item) => {
-        subtotal += item.unitPrice * item.quantity;
-        taxTotal += ((item.unitPrice * item.quantity) * (item.taxPercent || 0)) / 100;
+        const itemTotal = item.unitPrice * item.quantity;
+        item.total = itemTotal; // Set the total for each item
+        subtotal += itemTotal;
+        taxTotal += (itemTotal * (item.taxPercent || 0)) / 100;
     });
 
     const total = subtotal + taxTotal;
@@ -72,7 +74,7 @@ exports.getInvoices = async (req, res) => {
 exports.getInvoiceById = async (req, res) => {
     try {
     const invoice = await Invoice.findById(req.params.id).populate("user", "name email");
-    if (invoice) return res.status(404).json({ message: "Invoice not found" });
+    if (!invoice) return res.status(404).json({ message: "Invoice not found" });
 
     // Ensure the invoice belongs to the logged-in user
     if (invoice.user._id.toString() !== req.user.id) {
@@ -109,8 +111,10 @@ exports.updateInvoice = async (req, res) => {
     let taxTotal = 0;
     if (items && items.length > 0) {
         items.forEach((item) => {
-        subtotal += item.unitPrice * item.quantity;
-        taxTotal += ((item.unitPrice * item.quantity) * (item.taxPercent || 0)) / 100;
+        const itemTotal = item.unitPrice * item.quantity;
+        item.total = itemTotal; // Set the total for each item
+        subtotal += itemTotal;
+        taxTotal += (itemTotal * (item.taxPercent || 0)) / 100;
         });
     }
 

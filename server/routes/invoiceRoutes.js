@@ -16,7 +16,7 @@ router
     .route('/:id')   
     .get(protect, getInvoiceById)
     .put(protect, updateInvoice)
-    .delete(protect, deleteInvoice)
+    .delete(protect, deleteInvoice);
 
 module.exports = router;
 

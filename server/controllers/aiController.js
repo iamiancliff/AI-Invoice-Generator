@@ -38,7 +38,7 @@ const parseInvoiceFromText = async (req, res) => {
     
     
     const response = await ai.models.generateContent({
-        model: "gemini-1.5-flash-latest",
+        model: "gemini-flash-latest",
         contents: prompt,
     });
 
@@ -92,7 +92,7 @@ const generateReminderEmail = async (req, res) => {
       The tone should be friendly but clear. Keep it concise. Start the email with "Subject:". `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash-latest",
+      model: "gemini-flash-latest",
       contents: prompt,
     });
 
@@ -144,7 +144,7 @@ const getDashboardSummary = async (req, res) => {
     `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash-latest",
+      model: "gemini-flash-latest",
       contents: prompt,
     });
 
