@@ -5,27 +5,32 @@ const Button = ({
   size = 'medium', 
   isLoading = false, 
   children, 
-  icon: Icon, 
+  icon: Icon,
+  className = '',
   ...props }) => {
 
-    const baseClasses = 'inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-800 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#4FADC0]/50 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variantClasses = {
-    primary: 'bg-blue-900 hover:bg-blue-800 text-white',
-    secondary: 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200',
-    ghost: 'bg-transparent hover:bg-slate-100 text-slate-700',
+    primary: 'bg-[#4FADC0] hover:bg-[#3E95A7] text-white shadow-sm hover:shadow-md',
+    secondary: 'bg-white hover:bg-gray-50 text-[#193948] border-2 border-gray-200 hover:border-[#4FADC0] hover:text-[#4FADC0] shadow-sm hover:shadow-md',
+    ghost: 'bg-transparent hover:bg-[#4FADC0]/10 text-[#193948] hover:text-[#4FADC0]',
+    outline: 'bg-transparent border-2 border-[#4FADC0] text-[#4FADC0] hover:bg-[#4FADC0] hover:text-white shadow-sm hover:shadow-md',
+    accent: 'bg-[#E76268] hover:bg-[#d55a5f] text-white shadow-sm hover:shadow-md',
+    danger: 'bg-red-500 hover:bg-red-600 text-white shadow-sm hover:shadow-md',
+    success: 'bg-green-500 hover:bg-green-600 text-white shadow-sm hover:shadow-md',
   };
 
   const sizeClasses = {
-    small: 'px-3 py-1 h-8 text-sm',
-    medium: 'px-4 py-2 h-10 text-sm',
-    large: 'px-6 py-3 h-12 text-base',
+    small: 'px-4 py-2 h-9 text-sm',
+    medium: 'px-6 py-3 h-11 text-sm',
+    large: 'px-8 py-4 h-14 text-base',
+    xl: 'px-10 py-5 h-16 text-lg',
   };
-
 
   return (
     <button 
-      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]}`}
+      className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
       disabled={isLoading}
       {...props}
     >
@@ -33,7 +38,7 @@ const Button = ({
         <Loader2 className="w-5 h-5 animate-spin" />
       ) : (
         <>
-          {Icon && <Icon className="w-4 h-4 mr-2" />}
+          {Icon && <Icon className="w-5 h-5 mr-2" />}
           {children}
         </>
       )}

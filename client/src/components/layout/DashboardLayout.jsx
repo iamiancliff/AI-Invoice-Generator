@@ -10,18 +10,24 @@ const NavigationItem = ({ item, isActive, onClick, isCollapsed }) => {
 
   return <button
       onClick={() => onClick(item.id)}
-      className={`w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 group ${
+      className={`w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 ${
         isActive
-          ? "bg-blue-50 text-blue-900 shadow-sm shadow-blue-50"
-          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          ? "bg-[#4FADC0] text-white shadow-sm"
+          : "text-[#6B7280] hover:bg-[#4FADC0]/10 hover:text-[#4FADC0]"
       }`}
     >
       <Icon
         className={`h-5 w-5 flex-shrink-0 ${
-          isActive ? "text-blue-900" : "text-gray-500"
+          isActive 
+            ? "text-white" 
+            : "text-[#6B7280] group-hover:text-[#4FADC0]"
         }`}
       />
-      {!isCollapsed && <span className="ml-3 truncate">{item.name}</span>}
+      {!isCollapsed && (
+        <span className="ml-3 truncate">
+          {item.name}
+        </span>
+      )}
     </button>
 };
 
@@ -79,10 +85,10 @@ const DashboardLayout = ({ children, activeMenu }) => {
   const sidebarCollapsed = !isMobile && false;
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-[#F8FAFB]">
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-50 transition-transform duration-300 transform ${
+        className={`fixed inset-y-0 left-0 z-50 transition-all duration-300 transform ${
           isMobile
             ? sidebarOpen
               ? "translate-x-0"
@@ -90,24 +96,24 @@ const DashboardLayout = ({ children, activeMenu }) => {
             : "translate-x-0"
         } ${
           sidebarCollapsed ? "w-16" : "w-64"
-        } bg-white border-r border-gray-200`}
+        } bg-white border-r border-gray-200 shadow-sm`}
       >
         {/* Company Logo */}
-        <div className="flex items-center h-16 border-b border-gray-200 px-6">
-          <Link className="flex items-center space-x-3" to="/dashboard">
-            <div className="h-8 w-8 bg-gradient-to-br from-blue-900 to-blue-700 rounded-lg flex items-center justify-center">
-              <Briefcase className="h-5 w-5 text-white" />
+        <div className="flex items-center h-20 border-b border-gray-200 px-6">
+          <Link className="flex items-center space-x-3 group" to="/dashboard">
+            <div className="h-10 w-10 bg-[#4FADC0] rounded-xl flex items-center justify-center group-hover:bg-[#3E95A7] transition-colors duration-200">
+              <Briefcase className="h-6 w-6 text-white" />
             </div>
             {!sidebarCollapsed && (
-              <span className="text-gray-900 font-bold text-xl">
-                AI Invoice App
+              <span className="text-[#193948] font-paytone text-xl group-hover:text-[#4FADC0] transition-colors duration-200">
+                AI INVOICE APP
               </span>
             )}
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className="p-4 space-y-2">
+        <nav className="p-6 space-y-2">
           {NAVIGATION_MENU.map((item) => (
             <NavigationItem
               key={item.id}
@@ -120,12 +126,12 @@ const DashboardLayout = ({ children, activeMenu }) => {
         </nav>
 
         {/* Logout */}
-        <div className="absolute bottom-4 left-4 right-4">
+        <div className="absolute bottom-6 left-6 right-6">
           <button
-            className="w-full flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-all duration-200"
+            className="w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl text-[#6B7280] hover:bg-red-50 hover:text-red-600 transition-all duration-200"
             onClick={logout}
           >
-            <LogOut className="h-5 w-5 flex-shrink-0 text-gray-500" />
+            <LogOut className="h-5 w-5 flex-shrink-0" />
             {!sidebarCollapsed && <span className="ml-3">Logout</span>}
           </button>
         </div>
@@ -146,31 +152,31 @@ const DashboardLayout = ({ children, activeMenu }) => {
         }`}
       >
         {/* Top navbar */}
-        <header className="bg-white/80 backdrop-blur-sm border-b border-gray-200 h-16 flex items-center justify-between px-6 sticky top-0 z-30">
-          <div className="flex items-center space-x-4">
+        <header className="bg-white border-b border-gray-200 h-20 flex items-center justify-between px-8 sticky top-0 z-30 shadow-sm">
+          <div className="flex items-center space-x-6">
             {isMobile && (
               <button
                 onClick={toggleSidebar}
-                className="p-2 rounded-xl hover:bg-gray-100 transition-colors duration-200"
+                className="p-3 rounded-xl hover:bg-[#4FADC0]/10 transition-all duration-200 group"
               >
                 {sidebarOpen ? (
-                  <X className="h-5 w-5 text-gray-600" />
+                  <X className="h-6 w-6 text-[#6B7280] group-hover:text-[#4FADC0] transition-colors duration-200" />
                 ) : (
-                  <Menu className="h-5 w-5 text-gray-600" />
+                  <Menu className="h-6 w-6 text-[#6B7280] group-hover:text-[#4FADC0] transition-colors duration-200" />
                 )}
               </button>
             )}
             <div>
-              <h1 className="text-base font-semibold text-gray-900">
-                Welcome back, {user?.name}!
+              <h1 className="text-2xl font-semibold text-[#193948]">
+                Welcome back, <span className="text-[#4FADC0]">{user?.name}</span>!
               </h1>
-              <p className="text-sm text-gray-500 hidden sm:block">
-                Here's your invoice overview.
+              <p className="text-[#6B7280] hidden sm:block text-lg">
+                Here's your invoice overview and insights.
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-4">
             {/* Profile dropdown */}
             <ProfileDropdown
               isOpen={profileDropdownOpen}
@@ -187,7 +193,7 @@ const DashboardLayout = ({ children, activeMenu }) => {
         </header>
 
         {/* Main content area */}
-        <main className="flex-1 overflow-auto p-6">{children}</main>
+        <main className="flex-1 overflow-auto p-8 bg-[#F8FAFB]">{children}</main>
       </div>
     </div>
   );

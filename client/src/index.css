@@ -1,2 +1,237 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Whyte:wght@400;500;700&display=swap');
 @import "tailwindcss";
+
+:root {
+  --base-color: #293855; /* uniform dark-blue */
+  --primary-color: #3b82f6; /* subtle blue for hovers */
+  --primary-dark: #2563eb;
+  --secondary-color: #293855;
+  --accent-color: #F9CE69; /* standout CTA */
+  --surface-1: #324463; /* slightly lighter than base for depth */
+  --surface-2: #22314c; /* slightly darker than base for depth */
+  --text-primary: #E6ECF8;
+  --text-secondary: #B8C2D6;
+  --text-muted: #94A3B8;
+  --white: #FFFFFF;
+  --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 6px 16px -4px rgba(0, 0, 0, 0.35);
+  --shadow-soft: 0 12px 30px -8px rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Whyte', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--base-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Typography */
+.font-whyte {
+  font-family: 'Whyte', sans-serif;
+}
+
+/* Custom utility classes */
+.btn-primary {
+  background-color: var(--accent-color);
+  color: #1f2937;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover {
+  filter: brightness(0.97);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 30px -8px rgba(0, 0, 0, 0.45);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(230, 236, 248, 0.18);
+  border-radius: 12px;
+  padding: 10px 22px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(230, 236, 248, 0.3);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-subtle);
+}
+
+.btn-accent {
+  background-color: var(--accent-color);
+  color: var(--secondary-color);
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-card);
+}
+
+.btn-accent:hover {
+  background-color: #F7C94A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -5px rgba(249, 206, 105, 0.3);
+}
+
+.card-clean {
+  background: var(--surface-1);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.card-clean:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -10px rgba(155, 187, 252, 0.2);
+}
+
+.card-soft {
+  background: var(--surface-2);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.card-soft:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px -5px rgba(155, 187, 252, 0.25);
+}
+
+/* Animation keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(155, 187, 252, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(155, 187, 252, 0.5);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Gradient backgrounds */
+.bg-base {
+  background-color: var(--base-color);
+}
+
+.bg-surface {
+  background-color: var(--surface-1);
+}
+
+/* Additional micro-interactions */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+.hover-scale {
+  transition: all 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(155, 187, 252, 0.4);
+}
+
+/* Smooth section transitions */
+section {
+  scroll-margin-top: 80px;
+}
+
+/* Custom focus styles */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(249, 206, 105, 0.8), 0 0 0 4px rgba(41, 56, 85, 0.8);
+}
+
+/* Text selection styling */
+::selection {
+  background-color: #9BBBFC;
+  color: #4741A6;
+}
+
+::-moz-selection {
+  background-color: #9BBBFC;
+  color: #4741A6;
+}

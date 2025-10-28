@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FileText, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import ProfileDropdown from "../layout/ProfileDropdown";
 import Button from "../ui/Button";
 import { useAuth } from "../../context/AuthContext";
@@ -25,41 +25,50 @@ const Header = () => {
 
   return (
     <header 
-        className={`fixed top-0 w-full z-50 transition-all duration-300 bg-gray-100 ${
-        isScrolled ? "bg-white/95 backdrop-blur-sm shadow-lg" : "bg-white/0"
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled 
+          ? "backdrop-blur bg-[rgba(41,56,85,0.8)] border-b border-white/10 shadow-[0_6px_16px_-4px_rgba(0,0,0,0.45)]" 
+          : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-900 rounded-md flex items-center justify-center">
-              <FileText className="w-4 h-4 text-white" />
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="w-11 h-11 rounded-full relative flex items-center justify-center bg-white/5 group-hover:bg-white/10 transition-colors duration-200 border border-white/10 overflow-hidden">
+              <img src="/logo.svg" alt="AI Invoice" className="w-8 h-8" />
             </div>
-            <span className="text-xl font-bold text-gray-900">
+            <span className="text-xl font-whyte text-white/90 group-hover:text-white transition-colors duration-200 tracking-wide">
               AI Invoice App
             </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex lg:items-center">
+            <nav className="bg-white/5 border border-white/10 rounded-2xl px-3 py-1.5 shadow-sm">
+              <ul className="flex items-center gap-1">
+      
+                <li>
+                  <a href="/#features" className="px-4 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">Features</a>
+                </li>
+                <li>
+                  <a href="/#testimonials" className="px-4 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">Testimonials</a>
+                </li>
+                <li>
+                  <a href="/#faq" className="px-4 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">FAQ</a>
+                </li>
+                <li>
+                  <a href="/#about" className="px-4 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">About</a>
+                </li>
+                <li>
+                  <a href="mailto:support@aiinvoiceapp.com" className="px-4 py-2 rounded-xl text-white/70 hover:text-white hover:bg-white/5 transition-colors">Contact</a>
+                </li>
+              </ul>
+            </nav>
           </div>
-          <div className="hidden lg:flex lg:items-center lg:space-x-8">
-            <a
-              href="#features"
-              className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-black after:transition-all hover:after:w-full"
-            >
-              Features
-            </a>
-            <a
-              href="#testimonials"
-              className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-black after:transition-all hover:after:w-full"
-            >
-              Testimonials
-            </a>
-            <a
-              href="#faq"
-              className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-black after:transition-all hover:after:w-full"
-            >
-              FAQ
-            </a>
-          </div>
-          <div className="hidden lg:flex items-center space-x-4">
+
+          {/* Desktop Auth Buttons */}
+          <div className="hidden lg:flex items-center space-x-2">
             {isAuthenticated ? (
               <ProfileDropdown
                 isOpen={profileDropdownOpen}
@@ -74,25 +83,21 @@ const Header = () => {
               />
             ) : (
               <>
-                <Link
-                  to="/login"
-                  className="text-black hover:text-gray-900 font-medium transition-colors duration-200"
-                >
+                <Link to="/login" className="h-10 px-4 inline-flex items-center rounded-xl text-white/80 hover:text-white hover:bg-white/5 border border-white/10 transition-colors">
                   Login
                 </Link>
-                <Link
-                  to="/signup"
-                  className="bg-gradient-to-r from-blue-950 to-blue-900 hover:bg-gray-800 text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-200 hover:scale-105 hover:shadow-lg"
-                >
-                  Sign Up
+                <Link to="/signup" className="h-10 px-5 inline-flex items-center rounded-xl font-semibold bg-[var(--accent-color)] text-[var(--secondary-color)] hover:brightness-95 transition-all shadow-[0_10px_24px_-8px_rgba(0,0,0,0.45)]">
+                  Get Started Free
                 </Link>
               </>
             )}
           </div>
+
+          {/* Mobile Menu Button */}
           <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors duration-200"
+              className="p-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors duration-200 border border-transparent hover:border-white/10"
             >
               {isMenuOpen ? (
                 <X className="w-6 h-6" />
@@ -104,52 +109,77 @@ const Header = () => {
         </div>
       </div>
 
-       {isMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            <a
-              href="#features"
-              className="block px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-medium transition-colors duration-200"
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <div className="lg:hidden absolute top-full left-0 right-0 bg-[rgba(41,56,85,0.98)] border-b border-white/10 shadow-[0_12px_30px_-8px_rgba(0,0,0,0.6)]">
+          <div className="px-6 pt-4 pb-6 space-y-4">
+            <nav className="bg-white/5 border border-white/10 rounded-2xl p-2">
+              <a
+                href="/#about"
+                className="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About
+              </a>
+              <a
+                href="/#features"
+                className="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors"
+              onClick={() => setIsMenuOpen(false)}
             >
               Features
             </a>
             <a
-              href="#testimonials"
-              className="block px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-medium transition-colors duration-200"
+                href="/#testimonials"
+                className="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors"
+              onClick={() => setIsMenuOpen(false)}
             >
               Testimonials
             </a>
             <a
-              href="#faq"
-              className="block px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-medium transition-colors duration-200"
+                href="/#faq"
+                className="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors"
+              onClick={() => setIsMenuOpen(false)}
             >
               FAQ
             </a>
-            <div className="border-t border-gray-200 my-2"></div>
+              <a
+                href="mailto:support@aiinvoiceapp.com"
+                className="block px-4 py-3 rounded-xl text-white/70 hover:text-white hover:bg-white/5 font-medium transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
+              </a>
+            </nav>
+            <div className="border-t border-white/10"></div>
             {isAuthenticated ? (
-              <div className="p-4">
+              <div className="px-4">
                 <Button
-                  onClick={() => navigate("/dashboard")}
-                  className="w-full"
+                  onClick={() => {
+                    navigate("/dashboard");
+                    setIsMenuOpen(false);
+                  }}
+                  className="w-full btn-primary"
                 >
                   Go to Dashboard
                 </Button>
               </div>
             ) : (
-              <>
+              <div className="space-y-3 px-4">
                 <Link
                   to="/login"
-                  className="block px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-medium transition-colors duration-200"
+                  className="block w-full text-center text-white/80 hover:text-white font-medium transition-colors duration-200 py-3 rounded-lg hover:bg-white/5 border border-transparent hover:border-white/10"
+                  onClick={() => setIsMenuOpen(false)}
                 >
                   Login
                 </Link>
                 <Link
                   to="/signup"
-                  className="block w-full text-left bg-gray-900 hover:bg-gray-800 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200"
+                  className="block w-full text-center btn-primary py-3 rounded-xl font-semibold"
+                  onClick={() => setIsMenuOpen(false)}
                 >
-                  Sign Up
+                  Get Started Free
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>

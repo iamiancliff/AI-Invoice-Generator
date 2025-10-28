@@ -1,53 +1,66 @@
 import { Link } from "react-router-dom";
 import HERO_IMG from "../../assets/hero-img.png";
 import { useAuth } from "../../context/AuthContext";
+import { ArrowRight, CheckCircle, Sparkles } from "lucide-react";
 
 const Hero = () => {
   const { isAuthenticated } = useAuth();
   
   return (
-    <section className="relative bg-[#fbfbfb] overflow-hidden">
-      <div className="absolute inset-0 bg-grid-white/[0.05] bg-[size:60px_60px]"></div>
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-blue-950 leading-tight mb-6">
-            AI-Powered Invoicing, Made Effortless
-          </h1>
-          <p className="text-base sm:text-xl text-gray-700 mb-8 leading-relaxed max-w-3xl mx-auto">
-            Let our AI create invoices from simple text, generate payment
-            reminders, and provide smart insights to help you manage your
-            finances.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            {isAuthenticated ? (
-              <Link
-                to="/dashboard"
-                className="bg-gradient-to-r from-blue-950 to-blue-900 text-white px-8 py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-blue-900 transition-all duration-200 hover:scale-105 hover:shadow-2xl transform"
-              >
-                Go to Dashboard
-              </Link>
-            ) : (
-              <Link
-                to="/signup"
-                className="bg-gradient-to-r from-blue-950 to-blue-900 text-white px-8 py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-gray-800 transition-all duration-200 hover:scale-105 hover:shadow-2xl transform"
-              >
-                Get Started for Free
-              </Link>
-            )}
-            <a
-              href="#features"
-              className="border-2 border-black text-black px-8 py-4 rounded-xl font-bold text-base sm:text-lg hover:bg-white hover:text-black transition-all duration-200 hover:scale-105"
-            >
-              Learn More
-            </a>
+    <section className="relative bg-base overflow-hidden min-h-screen flex items-center">
+      {/* Decorative soft depth */}
+      {/* Decorative background intentionally removed for a cleaner hero */}
+
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-28 lg:py-36">
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          {/* Text */}
+          <div className="lg:col-span-6 text-left">
+            <h1 className="text-5xl sm:text-6xl font-whyte font-bold text-white leading-tight mb-6">
+              AI-powered invoicing,
+              <span className="block text-[var(--text-secondary)]">crafted for clarity.</span>
+            </h1>
+            <p className="text-lg text-[var(--text-secondary)] mb-10 max-w-xl">
+              Generate clean, professional invoices in seconds. Automate reminders and keep cash flow on track.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-4">
+              {isAuthenticated ? (
+                <Link to="/dashboard" className="btn-primary px-8 py-4 rounded-xl text-base flex items-center justify-center group">
+                  Go to Dashboard
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                </Link>
+              ) : (
+                <Link to="/signup" className="btn-primary px-8 py-4 rounded-xl text-base flex items-center justify-center group">
+                  Get Started Free
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                </Link>
+              )}
+              <a href="/#features" className="btn-secondary px-8 py-4 rounded-xl text-base flex items-center justify-center group">
+                Learn More
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+              </a>
+            </div>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="flex items-center space-x-3 text-[var(--text-secondary)]">
+                <CheckCircle className="w-5 h-5 text-[var(--text-primary)]" />
+                <span className="font-medium">AI-Generated Invoices</span>
+              </div>
+              <div className="flex items-center space-x-3 text-[var(--text-secondary)]">
+                <CheckCircle className="w-5 h-5 text-[var(--text-primary)]" />
+                <span className="font-medium">Smart Reminders</span>
+              </div>
+              <div className="flex items-center space-x-3 text-[var(--text-secondary)]">
+                <CheckCircle className="w-5 h-5 text-[var(--text-primary)]" />
+                <span className="font-medium">Actionable Insights</span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="mt-12 sm:mt-16 relative max-w-5xl mx-auto">
-          <img
-            src={HERO_IMG}
-            alt="Invoice App Screenshot"
-            className="rounded-2xl shadow-2xl shadow-gray-300 border-4 border-gray-200/20"
-          />
+
+          {/* Visual */}
+          <div className="lg:col-span-6 relative">
+            <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.7)] bg-surface">
+              <img src={HERO_IMG} alt="AI Invoice App Dashboard" className="w-full opacity-95" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
