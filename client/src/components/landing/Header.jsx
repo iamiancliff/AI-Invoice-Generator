@@ -45,23 +45,22 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex lg:items-center">
-            <nav className="bg-white/5 border border-white/10 rounded-2xl px-3 py-1.5 shadow-sm">
+            <nav className="bg-white/5 border border-white/10 rounded-2xl px-2 py-1 shadow-sm">
               <ul className="flex items-center gap-1">
-      
                 <li>
-                  <a href="/#features" className="px-4 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">Features</a>
+                  <a href="/#features" className="h-10 inline-flex items-center px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">Features</a>
                 </li>
                 <li>
-                  <a href="/#testimonials" className="px-4 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">Testimonials</a>
+                  <a href="/#testimonials" className="h-10 inline-flex items-center px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">Testimonials</a>
                 </li>
                 <li>
-                  <a href="/#faq" className="px-4 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">FAQ</a>
+                  <a href="/#faq" className="h-10 inline-flex items-center px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">FAQ</a>
                 </li>
                 <li>
-                  <a href="/#about" className="px-4 py-2 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">About</a>
+                  <a href="/#about" className="h-10 inline-flex items-center px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/5 transition-colors">About</a>
                 </li>
                 <li>
-                  <a href="mailto:support@aiinvoiceapp.com" className="px-4 py-2 rounded-xl text-white/70 hover:text-white hover:bg-white/5 transition-colors">Contact</a>
+                  <a href="/#contact" className="h-10 inline-flex items-center px-4 rounded-xl text-white/70 hover:text-white hover:bg-white/5 transition-colors">Contact</a>
                 </li>
               </ul>
             </nav>
@@ -115,36 +114,36 @@ const Header = () => {
           <div className="px-6 pt-4 pb-6 space-y-4">
             <nav className="bg-white/5 border border-white/10 rounded-2xl p-2">
               <a
+                href="/#features"
+                className="block h-11 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors flex items-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Features
+              </a>
+              <a
+                href="/#testimonials"
+                className="block h-11 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors flex items-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Testimonials
+              </a>
+              <a
+                href="/#faq"
+                className="block h-11 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors flex items-center"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                FAQ
+              </a>
+              <a
                 href="/#about"
-                className="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors"
+                className="block h-11 px-4 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors flex items-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 About
               </a>
               <a
-                href="/#features"
-                className="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Features
-            </a>
-            <a
-                href="/#testimonials"
-                className="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Testimonials
-            </a>
-            <a
-                href="/#faq"
-                className="block px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/5 font-medium transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              FAQ
-            </a>
-              <a
-                href="mailto:support@aiinvoiceapp.com"
-                className="block px-4 py-3 rounded-xl text-white/70 hover:text-white hover:bg-white/5 font-medium transition-colors"
+                href="/#contact"
+                className="block h-11 px-4 rounded-xl text-white/70 hover:text-white hover:bg-white/5 font-medium transition-colors flex items-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact

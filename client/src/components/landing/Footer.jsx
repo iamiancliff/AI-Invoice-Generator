@@ -40,7 +40,7 @@ const Footer = () => {
                 <FooterLink to="/security">Security</FooterLink>
           </div>
         </div>
-          <div>
+          <div id="contact">
             <h4 className="text-white font-whyte font-semibold mb-3">Contact</h4>
             <div className="space-y-3 inline-block">
               <ContactItem icon={Mail}>iancliff15@gmail.com</ContactItem>

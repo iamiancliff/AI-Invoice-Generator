@@ -6,7 +6,6 @@ import {
   Mail,
   Lock,
   FileText,
-  ArrowRight,
   User
 } from "lucide-react";
 import { API_PATHS } from "../../utils/apiPaths";
@@ -219,28 +218,28 @@ const SignUp = () => {
   };
 
   return (
-     <div className="min-h-screen bg-white flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-sm">
+     <div className="min-h-screen bg-base flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-lg card-clean p-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-12 h-12 bg-gradient-to-r from-blue-950 to-blue-900 rounded-xl mx-auto mb-6 flex items-center justify-center">
-            <FileText className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 bg-[var(--accent-color)] rounded-2xl mx-auto mb-6 flex items-center justify-center shadow-md">
+            <FileText className="w-6 h-6 text-[var(--secondary-color)]" />
           </div>
-          <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+          <h1 className="text-2xl font-semibold text-[var(--text-primary)] mb-2">
             Create Account
           </h1>
-          <p className="text-gray-600 text-sm">Join Invoice Generator today</p>
+          <p className="text-[var(--text-secondary)] text-sm">Join Invoice Generator today</p>
         </div>
 
         {/* Form */}
         <div className="space-y-4">
           {/* Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
               Full Name
             </label>
             <div className="relative">
-              <User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-[var(--accent-color)] bg-[var(--accent-color)]/10 p-1.5 rounded-md shadow-sm ring-1 ring-[var(--accent-color)]/60" />
               <input
                 name="name"
                 type="text"
@@ -248,10 +247,10 @@ const SignUp = () => {
                 value={formData.name}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                className={`w-full pl-12 pr-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent outline-none transition-all ${
+                className={`w-full pl-14 pr-4 py-3 border rounded-2xl bg-white text-slate-900 placeholder-slate-400 focus:ring-2 focus:border-transparent outline-none transition-all ${
                   fieldErrors.name && touched.name
                     ? "border-red-300 focus:ring-red-500"
-                    : "border-gray-300 focus:ring-black"
+                    : "border-gray-300 focus:ring-[var(--accent-color)]"
                 }`}
                 placeholder="Enter your full name"
               />
@@ -263,11 +262,11 @@ const SignUp = () => {
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
               Email
             </label>
             <div className="relative">
-              <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-[var(--accent-color)] bg-[var(--accent-color)]/10 p-1.5 rounded-md shadow-sm ring-1 ring-[var(--accent-color)]/60" />
               <input
                 name="email"
                 type="email"
@@ -275,10 +274,10 @@ const SignUp = () => {
                 value={formData.email}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                className={`w-full pl-12 pr-4 py-3 border rounded-lg focus:ring-2 focus:border-transparent outline-none transition-all ${
+                className={`w-full pl-14 pr-4 py-3 border rounded-2xl bg-white text-slate-900 placeholder-slate-400 focus:ring-2 focus:border-transparent outline-none transition-all ${
                   fieldErrors.email && touched.email
                     ? "border-red-300 focus:ring-red-500"
-                    : "border-gray-300 focus:ring-black"
+                    : "border-gray-300 focus:ring-[var(--accent-color)]"
                 }`}
                 placeholder="Enter your email"
               />
@@ -290,11 +289,11 @@ const SignUp = () => {
 
           {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
               Password
             </label>
             <div className="relative">
-              <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-[var(--accent-color)] bg-[var(--accent-color)]/10 p-1.5 rounded-md shadow-sm ring-1 ring-[var(--accent-color)]/60" />
               <input
                 name="password"
                 type={showPassword ? "text" : "password"}
@@ -302,22 +301,23 @@ const SignUp = () => {
                 value={formData.password}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                className={`w-full pl-12 pr-12 py-3 border rounded-lg focus:ring-2 focus:border-transparent outline-none transition-all ${
+                className={`w-full pl-14 pr-14 py-3 border rounded-2xl bg-white text-slate-900 placeholder-slate-400 focus:ring-2 focus:border-transparent outline-none transition-all ${
                   fieldErrors.password && touched.password
                     ? "border-red-300 focus:ring-red-500"
-                    : "border-gray-300 focus:ring-black"
+                    : "border-gray-300 focus:ring-[var(--accent-color)]"
                 }`}
                 placeholder="Create a password"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--accent-color)] hover:opacity-80 transition-opacity"
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
                 {showPassword ? (
-                  <EyeOff className="w-5 h-5" />
+                  <EyeOff className="w-[18px] h-[18px] stroke-[1.5]" />
                 ) : (
-                  <Eye className="w-5 h-5" />
+                  <Eye className="w-[18px] h-[18px] stroke-[1.5]" />
                 )}
               </button>
             </div>
@@ -330,11 +330,11 @@ const SignUp = () => {
 
           {/* Confirm Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-[var(--text-secondary)] mb-2">
               Confirm Password
             </label>
             <div className="relative">
-              <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 text-[var(--accent-color)] bg-[var(--accent-color)]/10 p-1.5 rounded-md shadow-sm ring-1 ring-[var(--accent-color)]/60" />
               <input
                 name="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
@@ -342,22 +342,23 @@ const SignUp = () => {
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                className={`w-full pl-12 pr-12 py-3 border rounded-lg focus:ring-2 focus:border-transparent outline-none transition-all ${
+                className={`w-full pl-14 pr-14 py-3 border rounded-2xl bg-white text-slate-900 placeholder-slate-400 focus:ring-2 focus:border-transparent outline-none transition-all ${
                   fieldErrors.confirmPassword && touched.confirmPassword
                     ? "border-red-300 focus:ring-red-500"
-                    : "border-gray-300 focus:ring-black"
+                    : "border-gray-300 focus:ring-[var(--accent-color)]"
                 }`}
                 placeholder="Confirm your password"
               />
               <button
                 type="button"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-[var(--accent-color)] hover:opacity-80 transition-opacity"
+                aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
               >
                 {showConfirmPassword ? (
-                  <EyeOff className="w-5 h-5" />
+                  <EyeOff className="w-[18px] h-[18px] stroke-[1.5]" />
                 ) : (
-                  <Eye className="w-5 h-5" />
+                  <Eye className="w-[18px] h-[18px] stroke-[1.5]" />
                 )}
               </button>
             </div>
@@ -386,16 +387,16 @@ const SignUp = () => {
             <input
               type="checkbox"
               id="terms"
-              className="w-4 h-4 text-black border-gray-300 rounded focus:ring-black mt-1"
+              className="w-4 h-4 text-[var(--secondary-color)] border-gray-300 rounded focus:ring-[var(--accent-color)] mt-1"
               required
             />
-            <label htmlFor="terms" className="ml-2 text-sm text-gray-600">
+            <label htmlFor="terms" className="ml-2 text-sm text-[var(--text-secondary)]">
               I agree to the{" "}
-              <button className="text-black hover:underline">
+              <button className="text-[var(--accent-color)] hover:underline">
                 Terms of Service
               </button>{" "}
               and{" "}
-              <button className="text-black hover:underline">
+              <button className="text-[var(--accent-color)] hover:underline">
                 Privacy Policy
               </button>
             </label>
@@ -405,7 +406,7 @@ const SignUp = () => {
           <button
             onClick={handleSubmit}
             disabled={isLoading || !isFormValid()}
-            className="w-full bg-gradient-to-r from-blue-950 to-blue-900 text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center group"
+            className="w-full bg-[var(--accent-color)] text-[var(--secondary-color)] py-3 px-4 rounded-2xl font-semibold shadow-sm hover:brightness-95 disabled:opacity-60 disabled:cursor-not-allowed transition-all flex items-center justify-center"
           >
             {isLoading ? (
               <>
@@ -413,20 +414,17 @@ const SignUp = () => {
                 Creating account...
               </>
             ) : (
-              <>
-                Create Account
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </>
+              <>Create Account</>
             )}
           </button>
         </div>
 
         {/* Footer */}
         <div className="mt-6 pt-4 border-t border-gray-200 text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-[var(--text-secondary)]">
             Already have an account?{" "}
             <button
-              className="text-black font-medium hover:underline"
+              className="text-[var(--accent-color)] font-medium hover:underline"
               onClick={() => navigate("/login")}
             >
               Sign in
