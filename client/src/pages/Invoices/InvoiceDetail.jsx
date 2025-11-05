@@ -53,19 +53,19 @@ const InvoiceDetail = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-96">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#4FADC0]" />
       </div>
     );
   }
 
   if (!invoice) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center bg-slate-50 rounded-lg">
-        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
-          <AlertCircle className="w-8 h-8 text-red-600" />
+      <div className="flex flex-col items-center justify-center py-12 text-center card-clean">
+        <div className="w-16 h-16 bg-red-500/20 rounded-full flex items-center justify-center mb-4">
+          <AlertCircle className="w-8 h-8 text-red-400" />
         </div>
-        <h3 className="text-lg font-medium text-slate-900 mb-2">Invoice Not Found</h3>
-        <p className="text-slate-500 mb-6 max-w-md">The invoice you are looking for does not exist or could not be loaded.</p>
+        <h3 className="text-lg font-medium text-[var(--text-primary)] mb-2">Invoice Not Found</h3>
+        <p className="text-[var(--text-secondary)] mb-6 max-w-md">The invoice you are looking for does not exist or could not be loaded.</p>
         <Button onClick={() => navigate('/invoices')}>Back to All Invoices</Button>
       </div>
     );
@@ -79,8 +79,8 @@ const InvoiceDetail = () => {
     <>
       <ReminderModal isOpen={isReminderModalOpen} onClose={() => setIsReminderModalOpen(false)} invoiceId={id} />
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 print:hidden">
-        <h1 className="text-2xl font-semibold text-slate-900 mb-4 sm:mb-0">
-          Invoice <span className="font-mono text-slate-500">{invoice.invoiceNumber}</span>
+        <h1 className="text-2xl font-semibold text-[var(--text-primary)] mb-4 sm:mb-0">
+          Invoice <span className="font-mono text-[var(--text-secondary)]">{invoice.invoiceNumber}</span>
         </h1>
         <div className="flex items-center gap-2">
           {invoice.status !== 'Paid' && (

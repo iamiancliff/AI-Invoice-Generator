@@ -12,15 +12,15 @@ const NavigationItem = ({ item, isActive, onClick, isCollapsed }) => {
       onClick={() => onClick(item.id)}
       className={`w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200 ${
         isActive
-          ? "bg-[#4FADC0] text-white shadow-sm"
-          : "text-[#6B7280] hover:bg-[#4FADC0]/10 hover:text-[#4FADC0]"
+          ? "bg-[var(--accent-color)] text-[var(--secondary-color)] shadow-sm"
+          : "text-[var(--text-secondary)] hover:bg-white/5 hover:text-[var(--text-primary)]"
       }`}
     >
       <Icon
         className={`h-5 w-5 flex-shrink-0 ${
           isActive 
-            ? "text-white" 
-            : "text-[#6B7280] group-hover:text-[#4FADC0]"
+            ? "text-[var(--secondary-color)]" 
+            : "text-[var(--text-secondary)]"
         }`}
       />
       {!isCollapsed && (
@@ -85,7 +85,7 @@ const DashboardLayout = ({ children, activeMenu }) => {
   const sidebarCollapsed = !isMobile && false;
 
   return (
-    <div className="flex h-screen bg-[#F8FAFB]">
+    <div className="flex h-screen bg-base">
       {/* Sidebar */}
       <div
         className={`fixed inset-y-0 left-0 z-50 transition-all duration-300 transform ${
@@ -96,16 +96,16 @@ const DashboardLayout = ({ children, activeMenu }) => {
             : "translate-x-0"
         } ${
           sidebarCollapsed ? "w-16" : "w-64"
-        } bg-white border-r border-gray-200 shadow-sm`}
+        } bg-[var(--surface-1)] border-r border-white/10 shadow-sm`}
       >
         {/* Company Logo */}
-        <div className="flex items-center h-20 border-b border-gray-200 px-6">
+        <div className="flex items-center h-20 border-b border-white/10 px-6">
           <Link className="flex items-center space-x-3 group" to="/dashboard">
-            <div className="h-10 w-10 bg-[#4FADC0] rounded-xl flex items-center justify-center group-hover:bg-[#3E95A7] transition-colors duration-200">
-              <Briefcase className="h-6 w-6 text-white" />
+            <div className="h-10 w-10 bg-[var(--accent-color)] rounded-xl flex items-center justify-center transition-colors duration-200 hover:opacity-90">
+              <Briefcase className="h-6 w-6 text-[var(--secondary-color)]" />
             </div>
             {!sidebarCollapsed && (
-              <span className="text-[#193948] font-paytone text-xl group-hover:text-[#4FADC0] transition-colors duration-200">
+              <span className="text-[var(--text-primary)] font-paytone text-xl">
                 AI INVOICE APP
               </span>
             )}
@@ -128,7 +128,7 @@ const DashboardLayout = ({ children, activeMenu }) => {
         {/* Logout */}
         <div className="absolute bottom-6 left-6 right-6">
           <button
-            className="w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl text-[#6B7280] hover:bg-red-50 hover:text-red-600 transition-all duration-200"
+            className="w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl text-[var(--text-secondary)] hover:bg-red-500/10 hover:text-red-400 transition-all duration-200"
             onClick={logout}
           >
             <LogOut className="h-5 w-5 flex-shrink-0" />
@@ -140,7 +140,7 @@ const DashboardLayout = ({ children, activeMenu }) => {
       {/* Mobile overlay */}
       {isMobile && sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/10 bg-opacity-25 z-40 backdrop-blur-sm"
+          className="fixed inset-0 bg-black/30 z-40 backdrop-blur-sm"
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -152,25 +152,25 @@ const DashboardLayout = ({ children, activeMenu }) => {
         }`}
       >
         {/* Top navbar */}
-        <header className="bg-white border-b border-gray-200 h-20 flex items-center justify-between px-8 sticky top-0 z-30 shadow-sm">
+        <header className="bg-[var(--surface-1)] border-b border-white/10 h-20 flex items-center justify-between px-8 sticky top-0 z-30 shadow-sm">
           <div className="flex items-center space-x-6">
             {isMobile && (
               <button
                 onClick={toggleSidebar}
-                className="p-3 rounded-xl hover:bg-[#4FADC0]/10 transition-all duration-200 group"
+                className="p-3 rounded-xl hover:bg-white/5 transition-all duration-200 group"
               >
                 {sidebarOpen ? (
-                  <X className="h-6 w-6 text-[#6B7280] group-hover:text-[#4FADC0] transition-colors duration-200" />
+                  <X className="h-6 w-6 text-[var(--text-secondary)]" />
                 ) : (
-                  <Menu className="h-6 w-6 text-[#6B7280] group-hover:text-[#4FADC0] transition-colors duration-200" />
+                  <Menu className="h-6 w-6 text-[var(--text-secondary)]" />
                 )}
               </button>
             )}
             <div>
-              <h1 className="text-2xl font-semibold text-[#193948]">
-                Welcome back, <span className="text-[#4FADC0]">{user?.name}</span>!
+              <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
+                Welcome back, <span className="text-[var(--accent-color)]">{user?.name}</span>!
               </h1>
-              <p className="text-[#6B7280] hidden sm:block text-lg">
+              <p className="text-[var(--text-secondary)] hidden sm:block text-lg">
                 Here's your invoice overview and insights.
               </p>
             </div>
@@ -193,7 +193,7 @@ const DashboardLayout = ({ children, activeMenu }) => {
         </header>
 
         {/* Main content area */}
-        <main className="flex-1 overflow-auto p-8 bg-[#F8FAFB]">{children}</main>
+        <main className="flex-1 overflow-auto p-8 bg-base">{children}</main>
       </div>
     </div>
   );

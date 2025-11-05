@@ -104,7 +104,7 @@ const AllInvoices = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center itw-8 h-8 animate-spin text-blue-600">
+      <div className="flex justify-center itw-8 h-8 animate-spin text-[var(--accent-color)]">
         <Loader2 className="" />
       </div>
     );
@@ -123,10 +123,10 @@ const AllInvoices = () => {
       />
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">
+          <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
             All Invoices
           </h1>
-          <p className="text-sm text-slate-600 mt-1">
+          <p className="text-sm text-[var(--text-secondary)] mt-1">
             Manage all your invoices in one place.
           </p>
         </div>
@@ -138,42 +138,42 @@ const AllInvoices = () => {
           >
             Create with AI
           </Button>
-          <Button onClick={() => navigate("/invoices/new")} icon={Plus}>
+          <Button variant="primary" onClick={() => navigate("/invoices/new")} icon={Plus}>
             Create Invoice
           </Button>
         </div>
       </div>
 
       {error && (
-        <div className="p-4 rounded-lg bg-red-50 border border-red-200">
+        <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20">
           <div className="flex items-start">
-            <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 mr-3" />
+            <AlertCircle className="w-5 h-5 text-red-300 mt-0.5 mr-3" />
             <div className="flex-1">
-              <h3 className="text-sm font-medium text-red-800 mb-1">Error</h3>
-              <p className="text-sm text-red-700">{error}</p>
+              <h3 className="text-sm font-medium text-red-200 mb-1">Error</h3>
+              <p className="text-sm text-red-300">{error}</p>
             </div>
           </div>
         </div>
       )}
 
-      <div className="bg-white border border-slate-200 rounded-lg shadow-sm">
-        <div className="p-4 sm:p-6 border-b border-slate-200">
+      <div className="card-clean">
+        <div className="p-4 sm:p-6 border-b border-white/10">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-grow">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="w-5 h-5 text-slate-400" />
+                <Search className="w-5 h-5 text-[var(--text-muted)]" />
               </div>
               <input
                 type="text"
                 placeholder="Search by invoice # or client..."
-                className="w-full h-10 pl-10 pr-4 py-2 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full h-10 pl-10 pr-4 py-2 border border-white/10 rounded-lg bg-[var(--surface-2)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]/60"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
             <div className="flex-shrink-0">
               <select
-                className="w-full sm:w-auto h-10 px-3 py-2 border border-slate-200 rounded-lg bg-white text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full sm:w-auto h-10 px-3 py-2 border border-white/10 rounded-lg bg-[var(--surface-2)] text-sm text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]/60"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
               >
@@ -188,41 +188,41 @@ const AllInvoices = () => {
 
         {filteredInvoices.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
-            <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
-              <FileText className="w-8 h-8 text-slate-400" />
+            <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4">
+              <FileText className="w-8 h-8 text-[var(--text-secondary)]" />
             </div>
-            <h3 className="text-lg font-medium text-slate-900 mb-2">No invoices found</h3>
-            <p className="text-slate-500 mb-6 max-w-md">Your search or filter criteria did not match any invoices. Try adjusting your search.</p>
+            <h3 className="text-lg font-medium text-[var(--text-primary)] mb-2">No invoices found</h3>
+            <p className="text-[var(--text-secondary)] mb-6 max-w-md">Your search or filter criteria did not match any invoices. Try adjusting your search.</p>
             {invoices.length === 0 && (
               <Button onClick={() => navigate('/invoices/new')} icon={Plus}>Create First Invoice</Button>
             )}
           </div>
         ) : (
           <div className="w-[90vw] md:w-auto overflow-x-auto">
-            <table className="min-w-full divide-y divide-slate-200">
-              <thead className="bg-slate-50">
+            <table className="min-w-full divide-y divide-white/10">
+              <thead className="bg-[var(--surface-2)]">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Invoice #</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Client</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Amount</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Due Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[var(--text-primary)] uppercase tracking-wider">Invoice #</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[var(--text-primary)] uppercase tracking-wider">Client</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[var(--text-primary)] uppercase tracking-wider">Amount</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[var(--text-primary)] uppercase tracking-wider">Due Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-[var(--text-primary)] uppercase tracking-wider">Status</th>
+                  <th className="px-6 py-3 text-right text-xs font-medium text-[var(--text-primary)] uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
 
-              <tbody className="bg-white divide-y divide-slate-200">
+              <tbody className="bg-[var(--surface-1)] divide-y divide-white/10">
                 {filteredInvoices.map(invoice => (
-                  <tr key={invoice._id} className="hover:bg-slate-50">
-                    <td onClick={() => navigate(`/invoices/${invoice._id}`)} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900 cursor-pointer">{invoice.invoiceNumber}</td>
-                    <td onClick={() => navigate(`/invoices/${invoice._id}`)} className="px-6 py-4 whitespace-nowrap text-sm text-slate-600 cursor-pointer">{invoice.billTo.clientName}</td>
-                    <td onClick={() => navigate(`/invoices/${invoice._id}`)} className="px-6 py-4 whitespace-nowrap text-sm text-slate-600 cursor-pointer">${invoice.total.toFixed(2)}</td>
-                    <td onClick={() => navigate(`/invoices/${invoice._id}`)} className="px-6 py-4 whitespace-nowrap text-sm text-slate-600 cursor-pointer">{moment(invoice.dueDate).format('MMM D, YYYY')}</td>
+                  <tr key={invoice._id} className="hover:bg-white/5">
+                    <td onClick={() => navigate(`/invoices/${invoice._id}`)} className="px-6 py-4 whitespace-nowrap text-sm font-medium text-[var(--text-primary)] cursor-pointer">{invoice.invoiceNumber}</td>
+                    <td onClick={() => navigate(`/invoices/${invoice._id}`)} className="px-6 py-4 whitespace-nowrap text-sm text-[var(--text-secondary)] cursor-pointer">{invoice.billTo.clientName}</td>
+                    <td onClick={() => navigate(`/invoices/${invoice._id}`)} className="px-6 py-4 whitespace-nowrap text-sm text-[var(--text-secondary)] cursor-pointer">${invoice.total.toFixed(2)}</td>
+                    <td onClick={() => navigate(`/invoices/${invoice._id}`)} className="px-6 py-4 whitespace-nowrap text-sm text-[var(--text-secondary)] cursor-pointer">{moment(invoice.dueDate).format('MMM D, YYYY')}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        invoice.status === 'Paid' ? 'bg-emerald-100 text-emerald-800' : 
-                        invoice.status === 'Pending' ? 'bg-amber-100 text-amber-800' :
-                        'bg-red-100 text-red-800'
+                        invoice.status === 'Paid' ? 'bg-green-500/15 text-green-300' : 
+                        invoice.status === 'Pending' ? 'bg-[var(--accent-color)]/30 text-[var(--secondary-color)]' :
+                        'bg-red-500/15 text-red-300'
                       }`}>
                         {invoice.status}
                       </span>
@@ -237,10 +237,31 @@ const AllInvoices = () => {
                         >
                           {invoice.status === 'Paid' ? 'Mark Unpaid' : 'Mark Paid'}
                         </Button>
-                        <Button size="small" variant="ghost" onClick={() => navigate(`/invoices/${invoice._id}`)}><Edit className="w-4 h-4" /></Button>
-                        <Button size="small" variant="ghost" onClick={() => handleDelete(invoice._id)}><Trash2 className="w-4 h-4 text-red-500" /></Button>
+                        <button 
+                          size="small" 
+                          onClick={() => navigate(`/invoices/${invoice._id}`)}
+                          className="p-2 rounded-lg bg-[#4FADC0]/20 hover:bg-[#4FADC0]/30 text-[#4FADC0] transition-colors"
+                          title="Edit"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </button>
+                        <button 
+                          size="small" 
+                          onClick={() => handleDelete(invoice._id)}
+                          className="p-2 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-400 transition-colors"
+                          title="Delete"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
                         {invoice.status !== 'Paid' && (
-                          <Button size="small" variant="ghost" onClick={() => handleOpenReminderModal(invoice._id)} title="Generate Reminder"><Mail className="w-4 h-4 text-blue-500" /></Button>
+                          <button 
+                            size="small" 
+                            onClick={() => handleOpenReminderModal(invoice._id)}
+                            className="p-2 rounded-lg bg-[var(--accent-color)]/20 hover:bg-[var(--accent-color)]/30 text-[var(--accent-color)] transition-colors"
+                            title="Generate Reminder"
+                          >
+                            <Mail className="w-4 h-4" />
+                          </button>
                         )}
                       </div>
                     </td>

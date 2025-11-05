@@ -13,8 +13,8 @@ const Button = ({
 
   const variantClasses = {
     primary: 'bg-[#4FADC0] hover:bg-[#3E95A7] text-white shadow-sm hover:shadow-md',
-    secondary: 'bg-white hover:bg-gray-50 text-[#193948] border-2 border-gray-200 hover:border-[#4FADC0] hover:text-[#4FADC0] shadow-sm hover:shadow-md',
-    ghost: 'bg-transparent hover:bg-[#4FADC0]/10 text-[#193948] hover:text-[#4FADC0]',
+    secondary: 'bg-white hover:bg-gray-50 text-[#193948] border-2 border-white/20 hover:border-[#4FADC0] hover:text-[#4FADC0] shadow-sm hover:shadow-md',
+    ghost: 'bg-transparent hover:bg-[#4FADC0]/10 text-[var(--text-primary)] hover:text-[#4FADC0]',
     outline: 'bg-transparent border-2 border-[#4FADC0] text-[#4FADC0] hover:bg-[#4FADC0] hover:text-white shadow-sm hover:shadow-md',
     accent: 'bg-[#E76268] hover:bg-[#d55a5f] text-white shadow-sm hover:shadow-md',
     danger: 'bg-red-500 hover:bg-red-600 text-white shadow-sm hover:shadow-md',

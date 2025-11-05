@@ -43,34 +43,44 @@ const CreateWithAIModal = ({isOpen, onClose}) => {
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex items-center justify-center min-h-screen px-4 text-center">
-        <div className="fixed inset-0 bg-black/10 bg-opacity-50 transition-opacity" onClick={onClose}></div>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onClick={onClose}></div>
         
-        <div className="bg-white rounded-lg shadow-xl max-w-lg w-full p-6 relative text-left transform transition-all">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-slate-900 flex items-center">
-              <Sparkles className="w-5 h-5 mr-2 text-blue-600" />
+        <div className="card-clean max-w-2xl w-full p-8 relative text-left transform transition-all z-10">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="text-2xl font-semibold text-[var(--text-primary)] flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#4FADC0]/20 rounded-xl flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-[#4FADC0]" />
+              </div>
               Create Invoice with AI
             </h3>
-            <button onClick={onClose} className="text-slate-400 hover:text-slate-600">&times;</button>
+            <button 
+              onClick={onClose} 
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/10 transition-colors"
+              aria-label="Close"
+            >
+              <span className="text-2xl leading-none">&times;</span>
+            </button>
           </div>
 
-          <div className="space-y-4">
-            <p className="text-sm text-slate-600">
+          <div className="space-y-6">
+            <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
               Paste any text that contains invoice details (like client name, items, quantities, and prices) and the AI will attempt to create an invoice from it.
             </p>
-            <TextareaField 
-              name="invoiceText"
-              label="Paste Invoice Text Here"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              placeholder="e.g., 'Invoice for ClientCorp: 2 hours of design work at $150/hr and 1 logo for $800'"
-              rows={8}
-            />
+            <div>
+              <TextareaField 
+                name="invoiceText"
+                label="Paste Invoice Text Here"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="e.g., 'Invoice for ClientCorp: 2 hours of design work at $150/hr and 1 logo for $800'"
+                rows={10}
+              />
+            </div>
           </div>
 
-          <div className="flex justify-end space-x-3 mt-6">
+          <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-white/10">
             <Button variant="secondary" onClick={onClose}>Cancel</Button>
-            <Button onClick={handleGenerate} isLoading={isLoading}>
+            <Button variant="primary" onClick={handleGenerate} isLoading={isLoading}>
               {isLoading ? 'Generating...' : 'Generate Invoice'}
             </Button>
           </div>

@@ -72,15 +72,15 @@ const Dashboard = () => {
   ];
 
   const colorClasses = {
-    blue: { bg: "bg-blue-100", text: "text-blue-600" },
-    emerald: { bg: "bg-emerald-100", text: "text-emerald-600" },
-    red: { bg: "bg-red-100", text: "text-red-600" },
+    blue: { bg: "bg-white/10", text: "text-[var(--text-primary)]" },
+    emerald: { bg: "bg-green-500/15", text: "text-green-300" },
+    red: { bg: "bg-red-500/15", text: "text-red-300" },
   };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-96">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+        <Loader2 className="w-8 h-8 animate-spin text-[var(--accent-color)]" />
       </div>
     );
   }
@@ -88,8 +88,10 @@ const Dashboard = () => {
   return (
     <div className="space-y-8 animate-fade-in-up">
       <div>
-        <h2 className="text-3xl font-paytone text-[#193948] mb-2">DASHBOARD</h2>
-        <p className="text-lg text-[#6B7280]">
+        <h2 className="text-3xl md:text-4xl font-whyte font-semibold text-[var(--text-primary)] mb-2 tracking-tight uppercase leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+          DASHBOARD
+        </h2>
+        <p className="text-lg text-[var(--text-secondary)]">
           A comprehensive overview of your business finances and performance.
         </p>
       </div>
@@ -113,10 +115,10 @@ const Dashboard = () => {
                 />
               </div>
               <div className="ml-6 min-w-0">
-                <div className="text-sm font-semibold text-[#6B7280] truncate mb-2">
+                <div className="text-sm font-semibold text-[var(--text-secondary)] truncate mb-2">
                   {stat.label}
                 </div>
-                <div className="text-3xl font-bold text-[#193948] break-words">
+                <div className="text-3xl font-bold text-[var(--text-primary)] break-words">
                   {stat.value}
                 </div>
               </div>
@@ -130,70 +132,70 @@ const Dashboard = () => {
 
       {/* Recent Invoices */}
       <div className="w-full card-clean overflow-hidden">
-        <div className="px-8 py-6 border-b border-gray-200 flex justify-between items-center">
+        <div className="px-8 py-6 border-b border-white/10 flex justify-between items-center">
           <div>
-            <h3 className="text-2xl font-paytone text-[#193948] mb-2">
+            <h3 className="text-2xl md:text-3xl font-whyte font-semibold text-[var(--text-primary)] mb-2 tracking-tight uppercase leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
               RECENT INVOICES
             </h3>
-            <p className="text-[#6B7280]">Your latest invoice activity and status updates.</p>
+            <p className="text-[var(--text-secondary)]">Your latest invoice activity and status updates.</p>
           </div>
-          <Button variant="outline" onClick={() => navigate("/invoices")}>
+          <Button variant="primary" onClick={() => navigate("/invoices")}>
             View All
           </Button>
         </div>
 
         {recentInvoices.length > 0 ? (
           <div className="w-[90vw] md:w-auto overflow-x-auto">
-            <table className="w-full min-w-[600px] divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+            <table className="w-full min-w-[600px] divide-y divide-white/10">
+              <thead className="bg-[var(--surface-2)]">
                 <tr>
-                  <th className="px-8 py-4 text-left text-sm font-semibold text-[#193948] uppercase tracking-wider">
+                  <th className="px-8 py-4 text-left text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wider">
                     Client
                   </th>
-                  <th className="px-8 py-4 text-left text-sm font-semibold text-[#193948] uppercase tracking-wider">
+                  <th className="px-8 py-4 text-left text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wider">
                     Amount
                   </th>
-                  <th className="px-8 py-4 text-left text-sm font-semibold text-[#193948] uppercase tracking-wider">
+                  <th className="px-8 py-4 text-left text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wider">
                     Status
                   </th>
-                  <th className="px-8 py-4 text-left text-sm font-semibold text-[#193948] uppercase tracking-wider">
+                  <th className="px-8 py-4 text-left text-sm font-semibold text-[var(--text-primary)] uppercase tracking-wider">
                     Due Date
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-[var(--surface-1)] divide-y divide-white/10">
                 {recentInvoices.map((invoice, index) => (
                   <tr
                     key={invoice._id}
-                    className="hover:bg-[#4FADC0]/5 cursor-pointer transition-colors duration-200 group"
+                    className="hover:bg-white/5 cursor-pointer transition-colors duration-200 group"
                     onClick={() => navigate(`/invoices/${invoice._id}`)}
                     style={{ animationDelay: `${index * 0.05}s` }}
                   >
                     <td className="px-8 py-6 whitespace-nowrap">
-                      <div className="text-base font-semibold text-[#193948] group-hover:text-[#4FADC0] transition-colors duration-200">
+                      <div className="text-base font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-color)] transition-colors duration-200">
                         {invoice.billTo.clientName}
                       </div>
-                      <div className="text-sm text-[#6B7280] font-medium">
+                      <div className="text-sm text-[var(--text-secondary)] font-medium">
                         #{invoice.invoiceNumber}
                       </div>
                     </td>
-                    <td className="px-8 py-6 whitespace-nowrap text-lg font-bold text-[#193948] group-hover:text-[#4FADC0] transition-colors duration-200">
+                    <td className="px-8 py-6 whitespace-nowrap text-lg font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-color)] transition-colors duration-200">
                       ${invoice.total.toFixed(2)}
                     </td>
                     <td className="px-8 py-6 whitespace-nowrap">
                       <span
                         className={`inline-flex items-center px-4 py-2 rounded-xl text-sm font-semibold ${
                           invoice.status === "Paid"
-                            ? "bg-green-100 text-green-800 border border-green-200"
+                            ? "bg-green-500/15 text-green-300 border border-green-500/20"
                             : invoice.status === "Pending"
-                            ? "bg-[#FCDC73] text-[#193948] border border-[#FCDC73]"
-                            : "bg-red-100 text-red-800 border border-red-200"
+                            ? "bg-[var(--accent-color)]/30 text-[var(--secondary-color)] border border-[var(--accent-color)]/40"
+                            : "bg-red-500/15 text-red-300 border border-red-500/20"
                         }`}
                       >
                         {invoice.status}
                       </span>
                     </td>
-                    <td className="px-8 py-6 whitespace-nowrap text-base text-[#6B7280] font-medium">
+                    <td className="px-8 py-6 whitespace-nowrap text-base text-[var(--text-secondary)] font-medium">
                       {moment(invoice.dueDate).format("MMM D, YYYY")}
                     </td>
                   </tr>
@@ -203,13 +205,13 @@ const Dashboard = () => {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-24 h-24 bg-[#4FADC0]/10 rounded-3xl flex items-center justify-center mb-8">
-              <FileText className="w-12 h-12 text-[#4FADC0]" />
+            <div className="w-24 h-24 bg-[var(--accent-color)]/15 rounded-3xl flex items-center justify-center mb-8">
+              <FileText className="w-12 h-12 text-[var(--accent-color)]" />
             </div>
-            <h3 className="text-2xl font-semibold text-[#193948] mb-4">
+            <h3 className="text-2xl font-semibold text-[var(--text-primary)] mb-4">
               No invoices yet
             </h3>
-            <p className="text-[#6B7280] mb-8 max-w-md text-lg leading-relaxed">
+            <p className="text-[var(--text-secondary)] mb-8 max-w-md text-lg leading-relaxed">
               You haven't created any invoices yet. Get started by creating your
               first one with our AI-powered tools.
             </p>
