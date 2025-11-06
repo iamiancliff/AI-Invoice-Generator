@@ -88,9 +88,9 @@ const Dashboard = () => {
   return (
     <div className="space-y-8 animate-fade-in-up">
       <div>
-        <h2 className="text-3xl md:text-4xl font-whyte font-semibold text-[var(--text-primary)] mb-2 tracking-tight uppercase leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-          DASHBOARD
-        </h2>
+        <h3 className="text-lg md:text-xl font-whyte font-medium text-[var(--text-primary)] mb-2 tracking-tight leading-tight">
+          Dashboard
+        </h3>
         <p className="text-lg text-[var(--text-secondary)]">
           A comprehensive overview of your business finances and performance.
         </p>
@@ -134,8 +134,8 @@ const Dashboard = () => {
       <div className="w-full card-clean overflow-hidden">
         <div className="px-8 py-6 border-b border-white/10 flex justify-between items-center">
           <div>
-            <h3 className="text-2xl md:text-3xl font-whyte font-semibold text-[var(--text-primary)] mb-2 tracking-tight uppercase leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-              RECENT INVOICES
+            <h3 className="text-lg md:text-xl font-whyte font-medium text-[var(--text-primary)] mb-2 tracking-tight leading-tight">
+              Recent Invoices
             </h3>
             <p className="text-[var(--text-secondary)]">Your latest invoice activity and status updates.</p>
           </div>

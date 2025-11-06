@@ -42,8 +42,24 @@ const ReminderModal = ({isOpen, onClose, invoiceId}) => {
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(reminderText);
     setHasCopied(true);
-    toast.success('Reminder copied to clipboard!');
+    toast.success('Reminder copied to clipboard! Paste it into your email client to send.');
     setTimeout(() => setHasCopied(false), 2000);
+  };
+
+  const handleOpenEmailClient = () => {
+    if (!reminderText) return;
+    
+    // Extract subject if it exists in the format "Subject: ..."
+    const subjectMatch = reminderText.match(/Subject:\s*(.+)/i);
+    const subject = subjectMatch ? subjectMatch[1].trim() : 'Invoice Payment Reminder';
+    
+    // Remove "Subject: ..." line from body if it exists
+    const bodyText = reminderText.replace(/Subject:\s*.+/i, '').trim();
+    
+    // Open Gmail compose window with pre-filled subject and body
+    // Gmail compose URL format: https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=SUBJECT&body=BODY
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyText)}`;
+    window.open(gmailUrl, '_blank');
   };
 
   if (!isOpen) return null
@@ -77,6 +93,11 @@ const ReminderModal = ({isOpen, onClose, invoiceId}) => {
             </div>
           ) : (
             <div className="space-y-4">
+              <div className="p-4 bg-[#4FADC0]/10 border border-[#4FADC0]/20 rounded-lg">
+                <p className="text-sm text-[var(--text-secondary)]">
+                  <strong className="text-[var(--text-primary)]">What's next?</strong> Copy the reminder text below and paste it into your email client (Gmail, Outlook, etc.) to send it to your client.
+                </p>
+              </div>
               <div>
                 <label className="block text-sm font-medium text-[var(--text-primary)] mb-2">
                   Reminder Email Content
@@ -94,6 +115,15 @@ const ReminderModal = ({isOpen, onClose, invoiceId}) => {
 
           <div className="flex justify-end gap-3 mt-8 pt-6 border-t border-white/10">
             <Button variant="secondary" onClick={onClose}>Close</Button>
+            {reminderText && (
+              <Button 
+                variant="outline" 
+                onClick={handleOpenEmailClient}
+                disabled={isLoading || !reminderText}
+              >
+                Open Email
+              </Button>
+            )}
             <Button 
               variant="primary" 
               onClick={handleCopyToClipboard} 

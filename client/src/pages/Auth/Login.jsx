@@ -12,6 +12,7 @@ import { useAuth } from "../../context/AuthContext";
 import axiosInstance from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { validateEmail, validatePassword } from "../../utils/helper";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
   const { login } = useAuth();
@@ -107,22 +108,26 @@ const Login = () => {
 
         if (token) {
           setSuccess("Login successful");
+          toast.success("Login successful", { position: "top-center" });
           login(response.data, token);
 
           // Redirect based on role
           setTimeout(() => {
             window.location.href = "/dashboard";
-          }, 2000);
+          }, 1200);
         }
       } else {
-        setError(response.data.message || "Invalid credentials");
+        const msg = response.data.message || "Invalid credentials";
+        setError(msg);
+        toast.error(msg, { position: "top-center" });
       }
     } catch (err) {
-      if (err.response && err.response.data && err.response.data.message) {
-        setError(err.response.data.message);
-      } else {
-        setError("An error occurred during login.");
-      }
+      const msg =
+        err.response && err.response.data && err.response.data.message
+          ? err.response.data.message
+          : "An error occurred during login.";
+      setError(msg);
+      toast.error(msg, { position: "top-center" });
     } finally {
       setIsLoading(false);
     }
@@ -143,6 +148,8 @@ const Login = () => {
             Welcome back to Invoice Generator
           </p>
         </div>
+
+        {/* Toasts are shown via react-hot-toast; no inline banners */}
 
         {/* Form */}
         <div className="space-y-4">
@@ -213,19 +220,6 @@ const Login = () => {
               </p>
             )}
           </div>
-
-          {/* Error/Success Messages */}
-          {error && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-600 text-sm">{error}</p>
-            </div>
-          )}
-
-          {success && (
-            <div className="p-3 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-green-600 text-sm">{success}</p>
-            </div>
-          )}
 
           {/* Login Button */}
           <button

@@ -105,7 +105,7 @@ const DashboardLayout = ({ children, activeMenu }) => {
               <Briefcase className="h-6 w-6 text-[var(--secondary-color)]" />
             </div>
             {!sidebarCollapsed && (
-              <span className="text-[var(--text-primary)] font-paytone text-xl">
+              <span className="text-[var(--text-primary)] font-whyte text-base font-normal">
                 AI INVOICE APP
               </span>
             )}
