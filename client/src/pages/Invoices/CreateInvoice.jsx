@@ -6,6 +6,7 @@ import { Plus, Trash2 } from "lucide-react";
 import toast from "react-hot-toast";
 import moment from "moment";
 import { useAuth } from "../../context/AuthContext";
+import { getSettings } from "../../utils/settingsStorage";
 
 import InputField from "../../components/ui/InputField";
 import TextareaField from "../../components/ui/TextareaField";
@@ -17,11 +18,14 @@ const CreateInvoice = ({existingInvoice, onSave}) => {
   const location = useLocation();
   const { user } = useAuth();
 
+  const settings = getSettings();
   const [formData, setFormData] = useState(
     existingInvoice || {
       invoiceNumber: "",
       invoiceDate: new Date().toISOString().split("T")[0],
       dueDate: "",
+      currency: "USD",
+      paymentMethod: settings.invoicePreferences.paymentMethod || "Bank",
       billFrom: {
         businessName: user?.businessName || "",
         email: user?.email || "",
@@ -29,9 +33,9 @@ const CreateInvoice = ({existingInvoice, onSave}) => {
         phone: user?.phone || "",
       },
       billTo: { clientName: "", email: "", address: "", phone: "" },
-      items: [{ name: "", quantity: 1, unitPrice: 0, taxPercent: 0 }],
+      items: [{ name: "", quantity: 1, unitPrice: 0, taxPercent: settings.invoicePreferences.defaultTaxPercent }],
       notes: "",
-      paymentTerms: "Net 15",
+      paymentTerms: settings.invoicePreferences.defaultPaymentTerms,
     }
   );
   const [loading, setLoading] = useState(false);
@@ -76,13 +80,14 @@ const CreateInvoice = ({existingInvoice, onSave}) => {
             const num = parseInt(inv.invoiceNumber.split("-")[1]);
             if (!isNaN(num) && num > maxNum) maxNum = num;
           });
-          const newInvoiceNumber = `INV-${String(maxNum + 1).padStart(3, "0")}`;
+          const prefix = settings.invoicePreferences.invoicePrefix || 'INV';
+          const newInvoiceNumber = `${prefix}-${String(maxNum + 1).padStart(3, "0")}`;
           setFormData((prev) => ({ ...prev, invoiceNumber: newInvoiceNumber }));
         } catch (error) {
           console.error("Failed to generate invoice number", error);
           setFormData((prev) => ({
             ...prev,
-            invoiceNumber: `INV-${Date.now().toString().slice(-5)}`,
+            invoiceNumber: `${settings.invoicePreferences.invoicePrefix || 'INV'}-${Date.now().toString().slice(-5)}`,
           }));
         }
         setIsGeneratingNumber(false);
@@ -109,7 +114,7 @@ const CreateInvoice = ({existingInvoice, onSave}) => {
       ...formData,
       items: [
         ...formData.items,
-        { name: "", quantity: 1, unitPrice: 0, taxPercent: 0 },
+        { name: "", quantity: 1, unitPrice: 0, taxPercent: settings.invoicePreferences.defaultTaxPercent },
       ],
     });
   };
@@ -252,6 +257,17 @@ const CreateInvoice = ({existingInvoice, onSave}) => {
             value={formData.paymentTerms}
             onChange={handleInputChange}
             options={["Net 15", "Net 30", "Net 60", "Due on receipt"]}
+          />
+          <SelectField
+            label="Payment Method"
+            name="paymentMethod"
+            value={formData.paymentMethod || settings.invoicePreferences.paymentMethod || "Bank"}
+            onChange={handleInputChange}
+            options={[
+              { value: 'Bank', label: 'Bank Transfer' },
+              { value: 'Mpesa', label: 'Mpesa (For Kenyans)' },
+              { value: 'International', label: 'International Payments' },
+            ]}
           />
         </div>
         <div className="card-clean p-6 flex flex-col justify-center">

@@ -7,6 +7,7 @@ const connectDB = require("./config/db");
 const authRoutes = require('./routes/authRoutes')
 const invoiceRoutes = require('./routes/invoiceRoutes')
 const aiRoutes = require('./routes/aiRoutes')
+const reportRoutes = require('./routes/reportRoutes')
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/reports", reportRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;

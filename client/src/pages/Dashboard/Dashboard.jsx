@@ -60,13 +60,13 @@ const Dashboard = () => {
     {
       icon: DollarSign,
       label: "Total Paid",
-      value: `${stats.totalPaid.toFixed(2)}`,
+      value: `$${stats.totalPaid.toFixed(2)}`,
       color: "emerald",
     },
     {
       icon: DollarSign,
       label: "Total Unpaid",
-      value: `${stats.totalUnpaid.toFixed(2)}`,
+      value: `$${stats.totalUnpaid.toFixed(2)}`,
       color: "red",
     },
   ];

@@ -125,16 +125,7 @@ const DashboardLayout = ({ children, activeMenu }) => {
           ))}
         </nav>
 
-        {/* Logout */}
-        <div className="absolute bottom-6 left-6 right-6">
-          <button
-            className="w-full flex items-center px-4 py-3 text-sm font-semibold rounded-xl text-[var(--text-secondary)] hover:bg-red-500/10 hover:text-red-400 transition-all duration-200"
-            onClick={logout}
-          >
-            <LogOut className="h-5 w-5 flex-shrink-0" />
-            {!sidebarCollapsed && <span className="ml-3">Logout</span>}
-          </button>
-        </div>
+        {/* Account actions moved to profile dropdown; sidebar kept clean */}
       </div>
 
       {/* Mobile overlay */}

@@ -131,7 +131,7 @@ const InvoiceDetail = () => {
             </div>
           </div>
           
-           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 my-8">
+           <div className={`grid grid-cols-1 sm:grid-cols-3 ${invoice.paymentMethod ? 'lg:grid-cols-4' : ''} gap-8 my-8`}>
             <div>
                 <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">Invoice Date</h3>
                 <p className="font-medium text-slate-800">{new Date(invoice.invoiceDate).toLocaleDateString()}</p>
@@ -144,6 +144,12 @@ const InvoiceDetail = () => {
                 <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">Payment Terms</h3>
                 <p className="font-medium text-slate-800">{invoice.paymentTerms}</p>
             </div>
+            {invoice.paymentMethod && (
+              <div>
+                <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-3">Payment Method</h3>
+                <p className="font-medium text-slate-800">{invoice.paymentMethod}</p>
+              </div>
+            )}
           </div>
 
           <div className="bg-white border border-slate-200 rounded-lg overflow-hidden">

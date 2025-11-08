@@ -46,9 +46,17 @@ const invoiceSchema = new mongoose.Schema(
             type: String,
             default: "Net 15",
         },
+        paymentMethod: {
+            type: String,
+            default: "Bank",
+        },
+        currency: {
+            type: String,
+            default: "USD",
+        },
         status: {
             type: String,
-            enum: ["Paid", "Unpaid"],
+            enum: ["Paid", "Unpaid", "Pending"],
             default: "Unpaid",
         },
         subtotal: Number,

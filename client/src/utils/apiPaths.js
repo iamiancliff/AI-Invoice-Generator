@@ -20,5 +20,9 @@ export const API_PATHS = {
     PARSE_INVOICE_TEXT: '/api/ai/parse-text',
     GENERATE_REMINDER: '/api/ai/generate-reminder',
     GET_DASHBOARD_SUMMARY: '/api/ai/dashboard-summary'
+  },
+
+  REPORTS: {
+    SUMMARY: '/api/reports/summary'
   }
 };
