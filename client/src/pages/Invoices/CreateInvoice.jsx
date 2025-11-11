@@ -265,7 +265,7 @@ const CreateInvoice = ({existingInvoice, onSave}) => {
             onChange={handleInputChange}
             options={[
               { value: 'Bank', label: 'Bank Transfer' },
-              { value: 'Mpesa', label: 'Mpesa (For Kenyans)' },
+              { value: 'Mpesa', label: 'Mpesa' },
               { value: 'International', label: 'International Payments' },
             ]}
           />

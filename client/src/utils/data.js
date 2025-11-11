@@ -29,23 +29,47 @@ export const FEATURES = [
 
 export const TESTIMONIALS = [
   {
-    quote: "This app saved me hours of work. I can now create and send invoices in minutes!",
-    author: "Jane Doe",
-    title: "Freelance Designer",
-    avatar: "https://placehold.co/100x100/000000/ffffff?text=JD"
+    quote: "Invoices that used to take an evening now take ten minutes. Clients pay faster too.",
+    author: "Juma Amina",
+    title: "Event Photographer",
+    avatar: "https://placehold.co/100x100/0B3D91/ffffff?text=JA",
+    rating: 5,
   },
   {
-    quote: "The best invoicing app I have ever used. Simple, intuitive, and powerful.",
-    author: "John Smith",
-    title: "Small Business Owner",
-    avatar: "https://placehold.co/100x100/000000/ffffff?text=JS"
+    quote: "The reminders are polite but effective. Cash flow is noticeably steadier.",
+    author: "Kelvin Barasa",
+    title: "Logistics SME Owner",
+    avatar: "https://placehold.co/100x100/0B3D91/ffffff?text=KB",
+    rating: 5,
   },
   {
-    quote: "I love the dashboard and reporting features. It helps me keep track of my finances effortlessly.",
-    author: "Peter Jones",
+    quote: "Importing details from emails is a lifesaver. Clean PDFs every time.",
+    author: "Jayden Otieno",
+    title: "Freelance Developer",
+    avatar: "https://placehold.co/100x100/0B3D91/ffffff?text=JO",
+    rating: 4,
+  },
+  {
+    quote: "Our team finally has one place for invoices—search and filters actually help.",
+    author: "Oliver Collins",
+    title: "Operations Lead",
+    avatar: "https://placehold.co/100x100/0B3D91/ffffff?text=OC",
+    rating: 4,
+  },
+  {
+    quote: "Dashboard totals are spot on, so month‑end is no longer a scramble.",
+    author: "Neema Zuri",
+    title: "Accountant",
+    avatar: "https://placehold.co/100x100/0B3D91/ffffff?text=NZ",
+    rating: 5,
+  },
+  {
+    quote: "Setup took minutes. I send invoices on my phone between meetings.",
+    author: "Leila Amani",
     title: "Consultant",
-    avatar: "https://placehold.co/100x100/000000/ffffff?text=PJ"
-  }
+    avatar: "https://placehold.co/100x100/0B3D91/ffffff?text=LA",
+    rating: 5,
+  },
 ];
 
 export const FAQS = [

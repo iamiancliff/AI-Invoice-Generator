@@ -19,9 +19,11 @@ exports.getSummary = async (req, res) => {
 
     const statusCounts = { Paid: 0, Unpaid: 0 };
 
-    // Aging buckets for Unpaid invoices based on dueDate
+    // Aging buckets for unpaid invoices based on dueDate
+    // Keep it realistic but simple and self-explanatory
     const aging = {
-      "0-30": 0,
+      "Not Due": 0,
+      "1-30": 0,
       "31-60": 0,
       "61-90": 0,
       "90+": 0,
@@ -36,11 +38,21 @@ exports.getSummary = async (req, res) => {
         totalUnpaid += inv.total || 0;
 
         if (inv.dueDate) {
-          const days = Math.floor((now - new Date(inv.dueDate)) / (1000 * 60 * 60 * 24));
-          if (days <= 30) aging["0-30"] += inv.total || 0;
-          else if (days <= 60) aging["31-60"] += inv.total || 0;
-          else if (days <= 90) aging["61-90"] += inv.total || 0;
-          else aging["90+"] += inv.total || 0;
+          const daysPastDue = Math.floor(
+            (now - new Date(inv.dueDate)) / (1000 * 60 * 60 * 24)
+          );
+          const amount = inv.total || 0;
+          if (daysPastDue <= 0) {
+            aging["Not Due"] += amount;
+          } else if (daysPastDue <= 30) {
+            aging["1-30"] += amount;
+          } else if (daysPastDue <= 60) {
+            aging["31-60"] += amount;
+          } else if (daysPastDue <= 90) {
+            aging["61-90"] += amount;
+          } else {
+            aging["90+"] += amount;
+          }
         }
       }
     });
@@ -66,6 +78,9 @@ exports.getSummary = async (req, res) => {
 
     const timeSeries = Array.from(seriesMap.values()).sort((a, b) => a.date.localeCompare(b.date));
 
+    const overdueTotal =
+      aging["1-30"] + aging["31-60"] + aging["61-90"] + aging["90+"];
+
     res.json({
       kpis: {
         totalInvoices,
@@ -74,6 +89,10 @@ exports.getSummary = async (req, res) => {
       },
       statusCounts,
       agingBuckets: aging,
+      agingSummary: {
+        overdueTotal,
+        unpaidTotal: totalUnpaid,
+      },
       timeSeries,
     });
   } catch (err) {

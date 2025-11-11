@@ -1,4 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import axiosInstance from "../utils/axiosInstance";
+import { API_PATHS } from "../utils/apiPaths";
 
 const AuthContext = createContext();
 
@@ -20,18 +22,29 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const checkAuthStatus = async () => {
-     try {
-      const token = localStorage.getItem('token');
-      const userStr = localStorage.getItem('user');
+    setLoading(true);
+    try {
+      const token = localStorage.getItem("token");
 
-      if (token && userStr) {
-        const userData = JSON.parse(userStr);
-        setUser(userData);
-        setIsAuthenticated(true);
+      if (!token) {
+        setUser(null);
+        setIsAuthenticated(false);
+        return;
       }
+
+      const response = await axiosInstance.get(API_PATHS.AUTH.GET_PROFILE);
+      const userData = response.data;
+
+      setUser(userData);
+      setIsAuthenticated(true);
+      localStorage.setItem("user", JSON.stringify(userData));
     } catch (error) {
-      console.error('Auth check failed:', error);
-      logout();
+      console.error("Auth check failed:", error);
+      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("user");
+      setUser(null);
+      setIsAuthenticated(false);
     } finally {
       setLoading(false);
     }
