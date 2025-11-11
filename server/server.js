@@ -12,9 +12,14 @@ const reportRoutes = require('./routes/reportRoutes')
 const app = express();
 
 // Middleware to handle CORS
+// In production, set ALLOWED_ORIGINS env var with your Vercel domain (e.g., "https://ai-invoice-generator.app,https://www.ai-invoice-generator.app")
+const allowedOrigins = process.env.ALLOWED_ORIGINS 
+  ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
+  : null; // If not set, allow all origins (development mode)
+
 app.use(
   cors({
-    origin: "*",
+    origin: allowedOrigins || true, // Allow all if ALLOWED_ORIGINS not set, otherwise use the list
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
