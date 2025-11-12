@@ -13,17 +13,28 @@ const app = express();
 
 // Middleware to handle CORS
 // In production, set ALLOWED_ORIGINS env var with your Vercel domain (e.g., "https://ai-invoice-generator.app,https://www.ai-invoice-generator.app")
-const allowedOrigins = process.env.ALLOWED_ORIGINS 
-  ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim())
-  : null; // If not set, allow all origins (development mode)
+const defaultOrigins = ["http://localhost:3000", "http://localhost:5173"];
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",").map((origin) => origin.trim())
+  : defaultOrigins;
 
-app.use(
-  cors({
-    origin: allowedOrigins || true, // Allow all if ALLOWED_ORIGINS not set, otherwise use the list
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (!origin) {
+      return callback(null, true);
+    }
+    if (!allowedOrigins || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error(`Origin ${origin} not allowed by CORS`));
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // Connect Database
 connectDB();
