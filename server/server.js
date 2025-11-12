@@ -48,6 +48,14 @@ app.use("/api/invoices", invoiceRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/reports", reportRoutes);
 
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    service: "ai-invoice-generator-api",
+    uptime: process.uptime(),
+  });
+});
+
 // Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

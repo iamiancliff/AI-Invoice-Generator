@@ -39,6 +39,34 @@ const DashboardLayout = ({ children, activeMenu }) => {
   const [activeNavItem, setActiveNavItem] = useState(activeMenu || "dashboard");
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(false);
+
+  // Check if user is new on mount - check after user is loaded
+  useEffect(() => {
+    if (user) {
+      // Check both the general flag and email-specific flag
+      // Get user email from user object (could be nested or direct)
+      const userEmail = user.email || (user.user && user.user.email);
+      const generalFlag = localStorage.getItem('isNewUser') === 'true';
+      const emailFlag = userEmail && localStorage.getItem(`isNewUser_${userEmail}`) === 'true';
+      const newUserFlag = generalFlag || emailFlag;
+      
+      if (newUserFlag) {
+        setIsNewUser(true);
+        // Clear the flags immediately after checking (so it only shows once)
+        // The state will remain true for this session
+        localStorage.removeItem('isNewUser');
+        if (userEmail) {
+          localStorage.removeItem(`isNewUser_${userEmail}`);
+        }
+      } else {
+        setIsNewUser(false);
+      }
+    } else {
+      // If no user, default to false
+      setIsNewUser(false);
+    }
+  }, [user]);
 
   // Handle responsive behavior
   useEffect(() => {
@@ -159,7 +187,10 @@ const DashboardLayout = ({ children, activeMenu }) => {
             )}
             <div>
               <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
-                Welcome back, <span className="text-[var(--accent-color)]">{user?.name}</span>!
+                {isNewUser 
+                  ? <>Welcome, <span className="text-[var(--accent-color)]">{user?.name}</span>!</>
+                  : <>Welcome back, <span className="text-[var(--accent-color)]">{user?.name}</span>!</>
+                }
               </h1>
               <p className="text-[var(--text-secondary)] hidden sm:block text-lg">
                 Here's your invoice overview and insights.

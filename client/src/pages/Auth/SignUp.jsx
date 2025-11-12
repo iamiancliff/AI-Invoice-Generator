@@ -9,15 +9,14 @@ import {
   User
 } from "lucide-react";
 import { API_PATHS } from "../../utils/apiPaths";
-import { useAuth } from "../../context/AuthContext";
 import axiosInstance from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { validateEmail, validatePassword } from "../../utils/helper";
+import { toast } from "react-hot-toast";
 
 
 const SignUp = () => {
 
-  const { login } = useAuth();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -31,7 +30,8 @@ const SignUp = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [termsError, setTermsError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({
     name: "",
     email: "",
@@ -136,7 +136,8 @@ const SignUp = () => {
       formData.name &&
       formData.email &&
       formData.password &&
-      formData.confirmPassword
+      formData.confirmPassword &&
+      termsAccepted
     );
   };
 
@@ -149,6 +150,24 @@ const SignUp = () => {
       formData.confirmPassword,
       formData.password
     );
+
+    // Validate terms and conditions
+    if (!termsAccepted) {
+      setTermsError("You must accept the Terms of Service and Privacy Policy to create an account");
+      setFieldErrors({
+        name: nameError,
+        email: emailError,
+        password: passwordError,
+        confirmPassword: confirmPasswordError,
+      });
+      setTouched({
+        name: true,
+        email: true,
+        password: true,
+        confirmPassword: true,
+      });
+      return;
+    }
 
     if (nameError || emailError || passwordError || confirmPasswordError) {
       setFieldErrors({
@@ -168,7 +187,7 @@ const SignUp = () => {
 
     setIsLoading(true);
     setError("");
-    setSuccess("");
+    setTermsError("");
 
     try {
       const response = await axiosInstance.post(
@@ -183,7 +202,17 @@ const SignUp = () => {
       const { token } = data;
 
       if (response.status === 201) {
-        setSuccess("Account created successfully");
+        // Show success toast
+        toast.success("Account created successfully!", { position: "top-center" });
+        
+        // Set flag to indicate this is a new user
+        // This will be checked when they log in to show "Welcome" instead of "Welcome back"
+        // Use a more specific key to avoid conflicts
+        localStorage.setItem('isNewUser', 'true');
+        // Also store with email to make it more specific
+        if (formData.email) {
+          localStorage.setItem(`isNewUser_${formData.email}`, 'true');
+        }
         
         // Reset form
         setFormData({
@@ -200,9 +229,11 @@ const SignUp = () => {
           confirmPassword: false,
         });
 
-        // Login the user immediately after successful registration
-        login(data, token);
-        navigate("/dashboard");
+        setTermsAccepted(false);
+        setTermsError("");
+
+        // Redirect to login page immediately
+        navigate("/login");
       }
       
     } catch (err) {
@@ -369,37 +400,52 @@ const SignUp = () => {
             )}
           </div>
 
-          {/* Error/Success Messages */}
+          {/* Error Messages */}
           {error && (
             <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-red-600 text-sm">{error}</p>
             </div>
           )}
 
-          {success && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-green-600 text-sm">{success}</p>
-            </div>
-          )}
-
           {/* Terms & Conditions */}
-          <div className="flex items-start pt-2">
-            <input
-              type="checkbox"
-              id="terms"
-              className="w-4 h-4 text-[var(--secondary-color)] border-gray-300 rounded focus:ring-[var(--accent-color)] mt-1"
-              required
-            />
-            <label htmlFor="terms" className="ml-2 text-sm text-[var(--text-secondary)]">
-              I agree to the{" "}
-              <button className="text-[var(--accent-color)] hover:underline">
-                Terms of Service
-              </button>{" "}
-              and{" "}
-              <button className="text-[var(--accent-color)] hover:underline">
-                Privacy Policy
-              </button>
-            </label>
+          <div>
+            <div className="flex items-start pt-2">
+              <input
+                type="checkbox"
+                id="terms"
+                checked={termsAccepted}
+                onChange={(e) => {
+                  setTermsAccepted(e.target.checked);
+                  if (e.target.checked) {
+                    setTermsError("");
+                  }
+                }}
+                className={`w-4 h-4 text-[var(--secondary-color)] border-gray-300 rounded focus:ring-[var(--accent-color)] mt-1 ${
+                  termsError ? "border-red-300" : ""
+                }`}
+              />
+              <label htmlFor="terms" className="ml-2 text-sm text-[var(--text-secondary)]">
+                I agree to the{" "}
+                <button 
+                  type="button"
+                  className="text-[var(--accent-color)] hover:underline"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  Terms of Service
+                </button>{" "}
+                and{" "}
+                <button 
+                  type="button"
+                  className="text-[var(--accent-color)] hover:underline"
+                  onClick={(e) => e.preventDefault()}
+                >
+                  Privacy Policy
+                </button>
+              </label>
+            </div>
+            {termsError && (
+              <p className="mt-1 text-sm text-red-600">{termsError}</p>
+            )}
           </div>
 
           {/* Sign Up Button */}

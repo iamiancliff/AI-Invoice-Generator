@@ -111,9 +111,25 @@ const Login = () => {
           toast.success("Login successful", { position: "top-center" });
           login(response.data, token);
 
+          // Preserve the isNewUser flag if it exists (set during signup)
+          // Don't remove it here - let DashboardLayout handle it
+          // Only clear it if it definitely doesn't exist (existing user)
+          const isNewUserFlag = localStorage.getItem('isNewUser');
+          const userEmail = response.data?.user?.email || response.data?.email;
+          const emailFlag = userEmail && localStorage.getItem(`isNewUser_${userEmail}`);
+          
+          // If neither flag exists, this is an existing user - clear any remnants
+          if ((!isNewUserFlag || isNewUserFlag !== 'true') && (!emailFlag || emailFlag !== 'true')) {
+            localStorage.removeItem('isNewUser');
+            if (userEmail) {
+              localStorage.removeItem(`isNewUser_${userEmail}`);
+            }
+          }
+
+          // Redirect immediately after successful login
           setTimeout(() => {
             navigate("/dashboard", { replace: true });
-          }, 1200);
+          }, 500);
         }
       } else {
         const msg = response.data.message || "Invalid credentials";
@@ -121,12 +137,31 @@ const Login = () => {
         toast.error(msg, { position: "top-center" });
       }
     } catch (err) {
-      const msg =
-        err.response && err.response.data && err.response.data.message
-          ? err.response.data.message
-          : "An error occurred during login.";
-      setError(msg);
-      toast.error(msg, { position: "top-center" });
+      // Use improved error messages from axios interceptor
+      let errorMessage = "An error occurred during login.";
+      
+      if (err.response) {
+        // Server responded with error
+        errorMessage = err.response.data?.message || err.response.statusText || errorMessage;
+      } else if (err.code === "ECONNABORTED") {
+        // Timeout error
+        errorMessage = err.message || "Request timeout. Please check your connection and try again.";
+      } else if (err.code === "ERR_CONNECTION_REFUSED" || err.message?.includes("CONNECTION_REFUSED")) {
+        // Connection refused - backend not running
+        errorMessage = err.message || "Backend server is not running. Please start the server and try again.";
+      } else if (err.code === "ERR_NETWORK" || err.message?.includes("Network Error")) {
+        // Network error
+        errorMessage = err.message || "Unable to connect to the server. Please check your internet connection.";
+      } else if (err.message) {
+        // Other errors with messages (including improved messages from axios interceptor)
+        errorMessage = err.message;
+      }
+      
+      setError(errorMessage);
+      toast.error(errorMessage, { 
+        position: "top-center",
+        duration: 4000, // Show error for 4 seconds
+      });
     } finally {
       setIsLoading(false);
     }
