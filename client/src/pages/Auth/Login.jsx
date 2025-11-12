@@ -111,9 +111,8 @@ const Login = () => {
           toast.success("Login successful", { position: "top-center" });
           login(response.data, token);
 
-          // Redirect based on role
           setTimeout(() => {
-            window.location.href = "/dashboard";
+            navigate("/dashboard", { replace: true });
           }, 1200);
         }
       } else {
