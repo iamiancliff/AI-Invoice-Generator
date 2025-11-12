@@ -1,5 +1,6 @@
 import {
-  BrowserRouter as Router,
+  BrowserRouter,
+  HashRouter,
   Routes,
   Route,
   Navigate,
@@ -22,9 +23,12 @@ import { AuthProvider } from "./context/AuthContext";
 
 
 const App = () => {
+  const RouterComponent =
+    import.meta.env.MODE === "production" ? HashRouter : BrowserRouter;
+
   return (
     <AuthProvider>
-      <Router>
+      <RouterComponent>
         <Routes>
           {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
@@ -46,7 +50,7 @@ const App = () => {
           {/* Catch all route */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </Router>
+      </RouterComponent>
 
       <Toaster
         toastOptions={{
